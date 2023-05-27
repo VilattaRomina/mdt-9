@@ -3,24 +3,40 @@ import React from "react";
 import { TyC, TyCsAPIResponse } from "../types";
 import styles from "../styles/TYC.module.css";
 import Head from "next/head";
+import { type } from "os";
 
 // Por ahora estamos utilizando data mockeada, pero
 // debemos reemplazar esto por información proveniente de la
 // API
-export const data: TyCsAPIResponse = {
-  version: "3 de julio, 2022",
-  tycs: [
-    {
-      id: 1,
-      title: "General",
-      description: `Tienda Libre es una compañía que ofrece servicios vinculados principalmente al comercio electrónico. 
-                    Los servicios están diseñados para formar un ecosistema que permita a las personas vender, 
-                    comprar, pagar, enviar productos y realizar otras actividades comerciales con tecnología aplicada.`,
-    },
-  ],
-};
+// export const data: TyCsAPIResponse = {
+//   version: "3 de julio, 2022",
+//   tycs: [
+//     {
+//       id: 1,
+//       title: "General",
+//       description: `Tienda Libre es una compañía que ofrece servicios vinculados principalmente al comercio electrónico. 
+//                     Los servicios están diseñados para formar un ecosistema que permita a las personas vender, 
+//                     comprar, pagar, enviar productos y realizar otras actividades comerciales con tecnología aplicada.`,
+//     },
+//   ],
+// };
 
-const TerminosYCondiciones: NextPage = () => {
+type Data = {
+  version: string,
+  tycs:[
+  {
+    id: number,
+  title: string,
+  description:string,
+}
+  ]
+}
+
+export interface TyCProps {
+  data:Data;
+}
+
+const TerminosYCondiciones: NextPage<TyCProps> = ({data}) => {
   if (!data) return null;
 
   const { version, tycs } = data;
@@ -50,5 +66,15 @@ const TerminosYCondiciones: NextPage = () => {
 
 // Aquí debemos agregar el método para obtener la información
 // de la API
+
+export async function getStaticProps(){
+  const response = await fetch(`https://mdt-9-nextjs.vercel.app/api/tycs`);
+  const data = await response.json();
+  return {
+    props: {
+      data
+    }
+  }
+}
 
 export default TerminosYCondiciones;
