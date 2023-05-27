@@ -21,19 +21,9 @@ import { type } from "os";
 //   ],
 // };
 
-type Data = {
-  version: string,
-  tycs:[
-  {
-    id: number,
-  title: string,
-  description:string,
-}
-  ]
-}
 
 export interface TyCProps {
-  data:Data;
+  data:TyCsAPIResponse;
 }
 
 const TerminosYCondiciones: NextPage<TyCProps> = ({data}) => {

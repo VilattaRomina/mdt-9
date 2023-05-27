@@ -19,17 +19,8 @@ import { Product, ProductsAPIResponse } from "../types";
 //   },
 // ];
 
-type Data = {
-  id:number,
-  title:string,
-  price: number,
-  description:string,
-  image:string,
-  rating:number,
-}
-
 export interface ProductProps {
-  products:Data[];
+  products:ProductsAPIResponse;
 }
 
 const Home: NextPage<ProductProps> = ({products}) => {
